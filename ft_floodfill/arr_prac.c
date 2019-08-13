@@ -35,8 +35,11 @@ void  flood_fill(char **tab, t_point size, t_point begin)
 {
 	char c;
 
-	c = tab[begin.y - 1][begin.x - 1];
-	filler(c, tab, size, begin.x, begin.y);
+	if (begin.y > 0 && begin.x > 0 && begin.y <= size.y && begin.x <= size.x)
+	{
+		c = tab[begin.y - 1][begin.x - 1];
+		filler(c, tab, size, begin.x, begin.y);
+	}
 }
 
 int	main(int ac, char *av[])
@@ -57,6 +60,8 @@ int	main(int ac, char *av[])
 	av++;
 	area = area_maker(av, size);
 	printf("Before fill:\n");
+	i = ac;
+	i = 0;
 	while (area[i])
 		printf("%s\n", area[i++]);
 	i = 0;
