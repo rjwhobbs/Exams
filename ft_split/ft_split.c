@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <stdio.h>
 
 static int	is_whtsp(char s)
 {
