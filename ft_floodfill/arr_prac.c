@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void	flood_fill(char **tab, t_point size, t_point begin);
+
 char	**area_maker(char **tab, t_point size)
 {
 	char **area;
@@ -15,7 +17,7 @@ char	**area_maker(char **tab, t_point size)
 		*area++ = *tab++;
 	return (a_position);
 }
-void	filler(char c, char **tab, t_point size, int x, int y)
+/*void	filler(char c, char **tab, t_point size, int x, int y)
 {
 	if (tab[y - 1][x - 1] == c)
 	{
@@ -40,7 +42,7 @@ void  flood_fill(char **tab, t_point size, t_point begin)
 		c = tab[begin.y - 1][begin.x - 1];
 		filler(c, tab, size, begin.x, begin.y);
 	}
-}
+}*/
 
 int	main(int ac, char *av[])
 {
