@@ -6,7 +6,7 @@
 /*   By: mmamalek <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 08:46:10 by mmamalek          #+#    #+#             */
-/*   Updated: 2019/08/13 15:54:09 by rhobbs           ###   ########.fr       */
+/*   Updated: 2019/08/14 10:24:52 by rhobbs           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ void ft_putchar(int c)
 int main(int ac, char **av)
 {
 	unsigned char	bytes[2048];
-	char			*stack[2048];
+	//char			*stack[2048];
 	unsigned char	*bptr;
 	char			*avptr;
 	int				check;
 
-	check = 0;
 	bptr = bytes;
 	avptr = av[1];
 	ft_bzero(bytes, 2048);
 	if (ac > 1)
 	{
+		check = 0;
 		while (*avptr)
 		{
 			if (*avptr == '>')
@@ -62,6 +62,18 @@ int main(int ac, char **av)
 					if (*avptr == ']')
 						check--;
 					else if (*avptr == '[')
+						check++;
+				}
+			}
+			else if (*avptr == ']' && *bptr != 0)
+			{
+				check++;
+				while (check)
+				{
+					avptr--;
+					if (*avptr == '[')
+						check--;
+					else if (*avptr == ']')
 						check++;
 				}
 			}

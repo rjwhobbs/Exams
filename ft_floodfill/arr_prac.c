@@ -17,18 +17,18 @@ char	**area_maker(char **tab, t_point size)
 		*area++ = *tab++;
 	return (a_position);
 }
-/*void	filler(char c, char **tab, t_point size, int x, int y)
+void	filler(char c, char **tab, t_point size, int x, int y)
 {
-	if (tab[y - 1][x - 1] == c)
+	if (tab[y][x] == c)
 	{
-		tab[y - 1][x - 1] = 'F';
-		if (x > 1)
+		tab[y][x] = 'F';
+		if (x > 0)
 			filler(c, tab, size, x - 1, y);
-		if (x < size.x)
+		if (x < (size.x - 1))
 			filler(c, tab, size, x + 1, y);
-		if (y > 1)
+		if (y > 0)
 			filler(c, tab, size, x, y - 1);
-		if (y < size.y)
+		if (y < (size.y - 1))
 			filler(c, tab, size, x, y + 1);
 	}
 }
@@ -37,12 +37,12 @@ void  flood_fill(char **tab, t_point size, t_point begin)
 {
 	char c;
 
-	if (begin.y > 0 && begin.x > 0 && begin.y <= size.y && begin.x <= size.x)
+	if (begin.y >= 0 && begin.x >= 0 && begin.y < size.y && begin.x < size.x)
 	{
-		c = tab[begin.y - 1][begin.x - 1];
+		c = tab[begin.y][begin.x];
 		filler(c, tab, size, begin.x, begin.y);
 	}
-}*/
+}
 
 int	main(int ac, char *av[])
 {
