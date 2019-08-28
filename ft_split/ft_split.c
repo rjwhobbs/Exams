@@ -1,74 +1,81 @@
 #include <stdlib.h>
 
-static int	is_whtsp(char s)
+static int		iswhtsp(char c)
 {
-	if ((s >= '\t' && s <= '\r') || s == ' ')
+	if (c == ' ' || (c >= '\t' && c <= '\r'))
 		return (1);
-	else 
+	else
 		return (0);
 }
 
-static int	word_count(char *str)
+static int		words(char *s)
 {
-	int len;
-	
-	len = 0;
-	while (*str)
-	{
-		while (is_whtsp(*str) && *str)
-			str++;
-		if (!(is_whtsp(*str)) && *str)
-			len++;
-		while (!(is_whtsp(*str)) && *str)
-			str++;
-	}
-	return (len);
+	int w;
+
+	w = 0;
+	if (s)
+		while (*s)
+		{
+			while (iswhtsp(*s) && *s)
+				s++;
+			if (!(iswhtsp(*s)) && *s)
+				w++;
+			while (!(iswhtsp(*s)) && *s)
+				s++;
+		}
+	return (w);
 }
 
-static int	word_len(char *str)
+static int		clen(char *s)
 {
-	int len;
+	int c;
 
-	len = 0;
-	while (*str && !(is_whtsp(*str)))
-	{
-		str++;
-		len++;
-	}
-	return (len);
+	c = 0;
+	if (s)
+		while (*s && !(iswhtsp(*s)))
+		{
+			s++;
+			c++;
+		}
+	return (c);
 }
 
-static void	cpy(char *arr, char *s2, size_t n)
+static void	cpy(char *s1, char *s2, int n)
 {
-	arr[n] = 0;
+	s1[n] = 0;
 	while (n--)
-		*arr++ = *s2++;
+		*s1++ = *s2++;
 }
 
 char    **ft_split(char *str)
 {
 	char **arr;
-	int words;
-	int wlen;
-	char **arr_position;
+	char **arr_x;
+	int ws;
+	int cs;
 
-	if (!(words = word_count(str)))
-		return (NULL);
-	if (!(arr = (char**)malloc(sizeof(char*) * (words + 1))))
-		return (NULL);
-	arr_position = arr;
-	arr[words] = NULL;
-	while (words--)
+	ws = words(str);
+	if (ws == 0)
 	{
-		while (is_whtsp(*str))
+		arr = (char**)malloc(sizeof(char*) * 1);
+		arr[0] = NULL;
+		return (arr);
+	}
+	arr = (char**)malloc(sizeof(char*) * (ws + 1));
+	arr_x = arr;
+	arr[ws] = NULL;
+	while (ws--)
+	{
+		while (iswhtsp(*str))
 			str++;
-		if (!(is_whtsp(*str)) && *str)
+		if (!(iswhtsp(*str)) && *str)
 		{
-			wlen = word_len(str);
-			*arr = (char*)malloc(sizeof(char) * (wlen + 1));
-			cpy(*arr++, str, wlen);
-			str += wlen;
+			cs = clen(str);
+			*arr = (char*)malloc(sizeof(char) * (cs + 1));
+			cpy(*arr++, str, cs);
+			str += cs;
 		}
 	}
-	return (arr_position);
+	*arr = NULL;
+	return (arr_x);
 }
